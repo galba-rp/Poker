@@ -10,38 +10,17 @@ public class App {
 
     public static void main(String[] args) {
         //TODO crete class cards which will convert card names to numbers and will sort cards
-
+        int i = 0;
+        int counter = 0;
         String result = "";
         Multimap<String, String> colorsMap = ArrayListMultimap.create();
         Multimap<String, String> valuesMap = ArrayListMultimap.create();
         String arg = args[0];
-        int i = 0;
-        int j = 0;
+
         arg = arg.replaceAll("-", "");
         String[] string = arg.split("");
-
         // replacing Card Letters with numbers for sorting purposes
-       while(j < string.length){
-            switch (string[j]){
-                case "A":
-                    string[j] = "14";
-                    break;
-                case "K":
-                    string[j] = "13";
-                    break;
-                case "Q":
-                    string[j] = "12";
-                    break;
-                case "J":
-                    string[j] = "11";
-                    break;
-                case "T":
-                    string[j] = "10";
-                    break;
-                default: break;
-            }
-            j += 2;
-        }
+        string  = LaMain.cardNamesToNumbers(string);
 
         while(i < string.length){
             colorsMap.put(string[i+1], string[i]);
@@ -49,29 +28,50 @@ public class App {
             i +=2 ;
         }
 
-        if(colorsMap.keySet().size() == 1){
-            // converting Collection of strings to arrayList of integers and sorting for comparison
-            Collection<String> cardValues = colorsMap.values();
-            ArrayList<Integer> cValues = new ArrayList<Integer>();
-            for(String numeric : cardValues)
-            {
-                cValues.add(Integer.parseInt(numeric));
-            }
-            Collections.sort(cValues);
-            System.out.println(cValues);
-
-            // checking if cards in order
-        } else {
-            System.out.println("different colors : ");
+        // converting Collection of strings to arrayList of integers and sorting for comparison
+        Collection<String> cardValues = colorsMap.values();
+        ArrayList<Integer> cValues = new ArrayList<Integer>();
+        for(String numeric : cardValues)
+        {
+            cValues.add(Integer.parseInt(numeric));
         }
+        Collections.sort(cValues);
 
-        System.out.println("colors : " + colorsMap);
-        System.out.println("values : " + valuesMap);
-        /*
-        System.out.println(valuesMap);
-        System.out.println("colors size : " + colorsMap.keySet().size());
-        System.out.println("values size : " + valuesMap.size());
+        // checking if cards in order
+        if(colorsMap.keySet().size() == 1){
+            int lastI = cValues.size() -1;
+            counter = LaMain.valuesOrderCheck(cValues);
+            if(counter > 0){
+                result = "flush";
+            }else if(cValues.get(lastI) == 14 ){
+                result = "La quinte flush royale";
+            }else  result = "La quinte flush";
 
- */
+        } else {
+            int value = 0;
+            switch (valuesMap.keySet().size()){
+                case 2:
+                    value = LaMain.sameValuesCheck(valuesMap);
+                    result = (value == 0) ?"Le carre" : "Le full";
+                    break;
+                case 3:
+                    value = LaMain.sameValuesCheck(valuesMap);
+                    result = (value == 2) ? "La double paire" : " Le brelan";
+                    break;
+                case 4:
+                    result = "La paire";
+                    break;
+                default:
+                    System.out.println(cValues);
+                    counter = LaMain.valuesOrderCheck(cValues);
+                    System.out.println(counter);
+                    if(counter == 0){
+                        result = "La suite";
+                    } else{
+                        result  = "La carte haute";
+                    }
+            }
+        }
+        System.out.println(result);
     }
 }
