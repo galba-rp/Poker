@@ -13,29 +13,13 @@ public class App {
         int i = 0;
         int counter = 0;
         String result = "";
-        Multimap<String, String> colorsMap = ArrayListMultimap.create();
+
         Multimap<String, String> valuesMap = ArrayListMultimap.create();
-        String arg = args[0];
+        Hand hand1 = new Hand(args[0]);
+        result = hand1.handCombo();
 
-        arg = arg.replaceAll("-", "");
-        String[] string = arg.split("");
-        // replacing Card Letters with numbers for sorting purposes
-        string  = LaMain.cardNamesToNumbers(string);
-
-        while(i < string.length){
-            colorsMap.put(string[i+1], string[i]);
-            valuesMap.put(string[i], string[i+1]);
-            i +=2 ;
-        }
 
         // converting Collection of strings to arrayList of integers and sorting for comparison
-        Collection<String> cardValues = colorsMap.values();
-        ArrayList<Integer> cValues = new ArrayList<Integer>();
-        for(String numeric : cardValues)
-        {
-            cValues.add(Integer.parseInt(numeric));
-        }
-        Collections.sort(cValues);
 
         // checking if cards in order
         if(colorsMap.keySet().size() == 1){

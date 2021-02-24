@@ -27,30 +27,6 @@ public class LaMain {
         return counter;
     }
 
-    public static String[] cardNamesToNumbers(String[] string){
-        int j = 0;
-        while(j < string.length){
-            switch (string[j]){
-                case "A":
-                    string[j] = "14";
-                    break;
-                case "K":
-                    string[j] = "13";
-                    break;
-                case "Q":
-                    string[j] = "12";
-                    break;
-                case "J":
-                    string[j] = "11";
-                    break;
-                case "T":
-                    string[j] = "10";
-                    break;
-                default: break;
-            }
-            j += 2;
-        }
-        return string;
-    }
+
 
 }
