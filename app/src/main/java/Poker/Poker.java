@@ -6,7 +6,7 @@ import com.google.common.collect.Multimap;
 
 import java.util.*;
 
-public class App {
+public class Poker {
 
     public static void main(String[] args) {
         //TODO crete class cards which will convert card names to numbers and will sort cards
