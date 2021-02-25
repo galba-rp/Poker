@@ -9,8 +9,8 @@ import java.util.Collections;
 
 public class Hand {
     private String hand;
-    String result;
-    int counter;
+    String result = "";
+    int counter = 0;
     private Multimap<String, String> colorsMap = ArrayListMultimap.create();
     private Multimap<String, String> valuesMap = ArrayListMultimap.create();
     private ArrayList<Integer> cValues = new ArrayList<Integer>();
@@ -18,8 +18,6 @@ public class Hand {
 
     public Hand(String args) {
         this.hand = args;
-        this.result = "";
-        this.counter = 0;
     }
 
     public String getHand() {
@@ -114,11 +112,10 @@ public class Hand {
         createColorsMap();
         createValuesMap();
         counter = valuesOrderCheck();
-        int lastI = this.cValues.size() -1;
         if(colorsMap.keySet().size() == 1){
             if(counter > 0){
                 result = "flush";
-            }else if(cValues.get(lastI) == 14 ){
+            }else if(cValues.get(0) == 10){
                 result = "La quinte flush royale";
             }else  result = "La quinte flush";
         } else {
